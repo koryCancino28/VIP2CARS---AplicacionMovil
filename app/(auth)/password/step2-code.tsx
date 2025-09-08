@@ -5,7 +5,7 @@
 // - Link "Reenviar código" (cooldown de 30–60s).
 
 import { router, useLocalSearchParams } from "expo-router";
-import { Button, Pressable, Text, TextInput, View } from "react-native";
+import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function Step2Code() {
   const { dni } = useLocalSearchParams<{ dni: string }>();
@@ -15,13 +15,37 @@ export default function Step2Code() {
   };
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>
-      <Text style={{ color: "#fff", fontWeight: "700", fontSize: 18, marginBottom: 8 }}>RECUPERAR CONTRASEÑA</Text>
-      <Text style={{ color: "#aaa", marginBottom: 8 }}>Ingrese el código enviado al número asociado al DNI {dni}</Text>
-      <TextInput style={{ backgroundColor: "#111", color: "#fff", borderRadius: 10, padding: 12, marginBottom: 16 }} />
+      <Image
+        source={require("../../../assets/images/vip2cars_logo.png")} 
+        style={{ width: 350, height: 120, alignSelf: "center", marginBottom: 10, marginTop: -90 }}
+        resizeMode="contain"
+      />
+      <View
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: 16,
+          padding: 24,
+        }}
+      >
+      <Text style={{ color: "#0f0f0fff", fontWeight: "700", fontSize: 18, marginBottom: 10, alignSelf: "center" }}>RECUPERAR CONTRASEÑA</Text>
+      <Text style={{ color: "#080808ff", marginBottom:10 }}>Ingrese el código enviado al número asociado al DNI {dni}</Text>
+      <TextInput style={{ backgroundColor: "#ecececff", color: "#000000ff", borderRadius: 10, padding: 12, marginBottom: 16 }} />
       <Pressable onPress={() => {/* Api.resendCode(dni) */}}>
         <Text style={{ color: "#E1052A", marginBottom: 12 }}>Reenviar código</Text>
       </Pressable>
-      <Button title="Continuar" onPress={onContinue} />
+      {/* Botón personalizado */}
+      <TouchableOpacity
+        onPress={onContinue}
+        style={{
+          backgroundColor: "#E1052A", 
+          paddingVertical: 14,
+          borderRadius: 8,
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>Continuar</Text>
+      </TouchableOpacity>
+      </View>
     </View>
   );
 }

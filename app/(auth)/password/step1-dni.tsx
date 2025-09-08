@@ -5,7 +5,7 @@
 
 import { router } from "expo-router";
 import { useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function Step1Dni() {
   const [dni, setDni] = useState('');
@@ -15,16 +15,39 @@ export default function Step1Dni() {
   };
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>
-      <Text style={{ color: "#fff", fontSize: 18, fontWeight: "700", marginBottom: 16 }}>RECUPERAR CONTRASEÑA</Text>
-      <Text style={{ color: "#aaa", marginBottom: 8 }}>Ingrese su DNI registrado</Text>
+      <Image
+        source={require("../../../assets/images/vip2cars_logo.png")} 
+        style={{ width: 350, height: 120, alignSelf: "center", marginBottom: 10, marginTop: -90 }}
+        resizeMode="contain"
+      />
+      <View
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: 16,
+          padding: 24,
+        }}
+      >
+      <Text style={{ color: "#000000ff", fontSize: 18, fontWeight: "700", marginBottom: 16, alignSelf: "center" }}>RECUPERAR CONTRASEÑA</Text>
+      <Text style={{ color: "#222222ff", marginBottom: 8 }}>Ingrese su DNI registrado</Text>
       <TextInput
-        style={{ backgroundColor: "#111", color: "#fff", borderRadius: 10, padding: 12, marginBottom: 16 }}
+        style={{ backgroundColor: "#ecececff", color: "#000000ff", borderRadius: 10, padding: 12, marginBottom: 16 }}
         value={dni}
         onChangeText={setDni}
         placeholder="DNI"
         keyboardType="numeric"
       />
-      <Button title="Continuar" onPress={onContinue} />
+      <TouchableOpacity
+        onPress={onContinue}
+        style={{
+          backgroundColor: "#E1052A", 
+          paddingVertical: 14,
+          borderRadius: 8,
+          alignItems: "center",
+        }}
+      >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>Continuar</Text>
+      </TouchableOpacity>
+      </View>
     </View>
   );
 }
