@@ -12,12 +12,21 @@ export default function LoginScreen() {
   // TODO: estado local para dni, password, remember, loading, error
 
   const onSubmit = async () => {
-    // TODO:
-    // 1) Validar campos
-    // 2) Api.login(dni, password)
-    // 3) Guardar token/usuario en AuthContext y AsyncStorage si "Recordarme"
-    // 4) router.replace("(tabs)");
-    router.replace("../(tabs)");
+    try {
+      // Aquí normalmente llamarías a tu API de login
+      const loginExitoso = true;
+
+      if (loginExitoso) {
+        // Redirige a la pantalla de vehículos
+        router.replace("../vehiculo/details");
+
+      } else {
+        alert("DNI o contraseña incorrectos");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error al iniciar sesión");
+    }
   };
 
   return (
