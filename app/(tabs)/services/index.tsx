@@ -90,8 +90,8 @@ function renderProgress(label: string, estado: string, color: string, percent: n
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#2b2b2bff" }, // ocupa toda la pantalla
-  scrollContent: { padding: 8 }, // padding solo dentro del scroll
+  container: { flex: 1, backgroundColor: "#2b2b2bff" }, 
+  scrollContent: { padding: 8 }, 
   dropdown: {
     flexDirection: "row",
     alignItems: "center",
