@@ -35,7 +35,7 @@ export default function Step1Dni() {
         {/*Subtitulo*/}
         <CustomText style={{ color: "#636363ff", marginBottom: 15, textAlign: "center" }}>INGRESE SU DNI REGISTRADO</CustomText>
         {/* Input DNI + Botón Continuar */}
-        <CustomText>DNI</CustomText>
+        <CustomText style={{marginBottom:5}}>DNI</CustomText>
         <TextInput
           style={{ backgroundColor: "#fcfcfcff", borderWidth: 1, borderColor: "#939393ff", color: "#000000ff", borderRadius: 10, padding: 12, marginBottom: 16 }}
           value={dni}

@@ -34,11 +34,11 @@ export default function Step2Code() {
         justifyContent: "center"
       }}>
         {/*Titulo*/}
-        <CustomText style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 25, textAlign: "center" }}>RECUPERAR CONTRASEÑA</CustomText>
+        <CustomText style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center" }}>RECUPERAR CONTRASEÑA</CustomText>
         {/*Subtitulo*/}
         <CustomText style={{ color: "#636363ff", marginBottom: 15, textAlign: "center", paddingHorizontal:10 }}>INGRESE EL CÓDIGO DE VERIFICACIÓN ENVIADO AL NÚMERO: +51 9********</CustomText>
         {/* Input Código */}
-        <CustomText>CÓDIGO</CustomText>
+        <CustomText style={{ marginBottom:5}}>CÓDIGO</CustomText>
         <TextInput
           style={{ backgroundColor: "#fcfcfcff", borderWidth: 1, borderColor: "#939393ff", color: "#000", borderRadius: 10, padding: 12, marginBottom: 5 }}
           value={code}
