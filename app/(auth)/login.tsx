@@ -5,11 +5,10 @@
 // - Botón "Ingresar": llama Api.login(), guarda token en AuthContext, redirige a (tabs)
 // - Link a recuperación: (auth)/password/step1-dni
 
-import CustomText from "@/components/CustomText";
 import { Link, router } from "expo-router";
 
 import React, { useState } from "react";
-import { Image, Switch, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Switch, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const icon = require('../../assets/images/logo-vip2cars.png');
 
@@ -34,10 +33,10 @@ export default function LoginScreen() {
       <Image source={icon} style={{ width: 380, height: 60, alignSelf: "center", marginBottom: 20 }}></Image>
       {/*Formulario*/}
       <View style={{ backgroundColor: "#ffffffff", borderRadius: 45, paddingVertical: 32, paddingHorizontal: 42, width: "100%", maxWidth: 400, minHeight: 400, alignSelf: "center", justifyContent: "center" }}>
-        <CustomText style={{ color: "#010101ff", fontSize: 28, fontWeight: "800", marginBottom: 12, textAlign: "center" }}>INICIO DE SESIÓN</CustomText>
+        <Text style={{ color: "#010101ff", fontSize: 28, fontWeight: "800", marginBottom: 12, textAlign: "center" }}>INICIO DE SESIÓN</Text>
 
         {/* DNI */}
-        <CustomText style={{ color: "#080808ff", marginBottom:5 }}>DNI</CustomText>
+        <Text style={{ color: "#080808ff", marginBottom:5 }}>DNI</Text>
         <TextInput
           style={{ backgroundColor: "#ffffffff", borderWidth: 1, borderColor:"#939393ff" ,color: "#000", borderRadius: 8, padding: 12, height:50 ,marginBottom: 18 }}
           value={dni}
@@ -47,7 +46,7 @@ export default function LoginScreen() {
         />
 
         {/* Contraseña */}
-        <CustomText style={{ color: "#000000ff", marginBottom:5 }}>CONTRASEÑA</CustomText>
+        <Text style={{ color: "#000000ff", marginBottom:5 }}>CONTRASEÑA</Text>
         <TextInput
           secureTextEntry
           style={{ backgroundColor: "#ffffffff", borderWidth:1,borderColor:"#939393ff" ,color: "#000", borderRadius: 8, height:50 ,padding: 12, marginBottom: 5 }}
@@ -58,7 +57,7 @@ export default function LoginScreen() {
         {/* Link a recuperación */}
         <View/>
         <Link href="../(auth)/password/step1-dni" asChild>
-          <CustomText style={{ color: "#E1052A" }}>¿OLVIDASTE TU CONTRASEÑA?</CustomText>
+          <Text style={{ color: "#E1052A" }}>¿OLVIDASTE TU CONTRASEÑA?</Text>
         </Link>
 
         {/* Recordarme + Botón Ingresar */}   
@@ -71,13 +70,13 @@ export default function LoginScreen() {
               value={remember}
               onValueChange={setRemember}
             />
-            <CustomText style={{ color: "#000000ff", fontSize:13}}>RECORDARME EN ESTE DISPOSITIVO</CustomText>
+            <Text style={{ color: "#000000ff", fontSize:13}}>RECORDARME EN ESTE DISPOSITIVO</Text>
           </View>
 
           {/* Botón Ingresar */}
           <View style={{ width: "100%", maxWidth: 200 }}>
             <TouchableOpacity style={{ backgroundColor: "#E4022E", borderRadius: 22, paddingVertical: 15, paddingHorizontal: 24, alignItems: 'center' }} onPress={handleLogin}>
-              <CustomText style={{ color: 'white', fontSize: 18 }}>INICIAR SESIÓN</CustomText>
+              <Text style={{ color: 'white', fontSize: 18 }}>INICIAR SESIÓN</Text>
             </TouchableOpacity>
           </View>
 

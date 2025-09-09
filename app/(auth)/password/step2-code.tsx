@@ -4,22 +4,23 @@
 // - Botón "Continuar" → step3-new-password.
 // - Link "Reenviar código" (cooldown de 30–60s).
 
-import CustomText from "@/components/CustomText";
 import { router, useLocalSearchParams } from "expo-router";
 
+
 import { useState } from "react";
-import { Image, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const icon = require('../../../assets/images/logo-vip2cars.png');
-
 
 export default function Step2Code() {
   const { dni } = useLocalSearchParams<{ dni: string }>();
   const [code, setCode] = useState('');
+  
   const onContinue = async () => {
     // await Api.verifyRecoveryCode({ dni, code });
     router.push({ pathname: "/(auth)/password/step3-new-password", params: { dni } });
   };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>
       {/*Logo*/}
@@ -36,11 +37,11 @@ export default function Step2Code() {
         justifyContent: "center"
       }}>
         {/*Titulo*/}
-        <CustomText style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center" }}>RECUPERAR CONTRASEÑA</CustomText>
+        <Text style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center" }}>RECUPERAR CONTRASEÑA</Text>
         {/*Subtitulo*/}
-        <CustomText style={{ color: "#636363ff", marginBottom: 15, textAlign: "center", paddingHorizontal:10 }}>INGRESE EL CÓDIGO DE VERIFICACIÓN ENVIADO AL NÚMERO: +51 9********</CustomText>
+        <Text style={{ color: "#636363ff", marginBottom: 15, textAlign: "center", paddingHorizontal:10 }}>INGRESE EL CÓDIGO DE VERIFICACIÓN ENVIADO AL NÚMERO: +51 9********</Text>
         {/* Input Código */}
-        <CustomText style={{ marginBottom:5}}>CÓDIGO</CustomText>
+        <Text style={{ marginBottom:5}}>CÓDIGO</Text>
         <TextInput
           style={{ backgroundColor: "#fcfcfcff", borderWidth: 1, borderColor: "#939393ff", color: "#000", borderRadius: 10, padding: 12, marginBottom: 5 }}
           value={code}
@@ -49,7 +50,7 @@ export default function Step2Code() {
         />
         {/* Reenviar código */}
         <TouchableOpacity onPress={() => {/* Api.resendCode(dni) */}} style={{ marginBottom: 28 }}>
-          <CustomText style={{ color: "#E1052A", textAlign:"left" }}>REENVIAR CÓDIGO</CustomText>
+          <Text style={{ color: "#E1052A", textAlign:"left" }}>REENVIAR CÓDIGO</Text>
         </TouchableOpacity>
         <View style={{ width: "100%", maxWidth: 180, alignSelf: "center" }}>
           <TouchableOpacity
@@ -62,12 +63,12 @@ export default function Step2Code() {
             }}
             onPress={onContinue}
           >
-            <CustomText style={{
+            <Text style={{
               color: 'white',
               fontSize: 18
             }}>
               CONTINUAR
-            </CustomText>
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

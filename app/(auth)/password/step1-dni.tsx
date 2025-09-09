@@ -1,21 +1,24 @@
-// Paso 1: Ingresar DNI
+// app/(auth)/password/step1-dni.tsx
+// === Paso 1: Ingresar DNI ===
 // - Valida DNI.
 // - Llama a Api.sendRecoveryCode(dni).
 // - Navega a step2-code pasando el dni como parámetro para mostrar el número enmascarado.
 
-import CustomText from "@/components/CustomText";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Image, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
 const icon = require('../../../assets/images/logo-vip2cars.png');
+
 export default function Step1Dni() {
   const [dni, setDni] = useState('');
+  
   const onContinue = async () => {
-    // await Api.sendRecoveryCode(dni);
+    // await Api.sendRecoveryCode(dni); // Aquí puedes agregar la llamada a la API.
     router.push({ pathname: "/(auth)/password/step2-code", params: { dni } });
   };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>
       {/*Logo*/}
@@ -32,11 +35,11 @@ export default function Step1Dni() {
         justifyContent: "center"
       }}>
         {/*Titulo*/}
-        <CustomText style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center" }}>RECUPERAR CONTRASEÑA</CustomText>
+        <Text style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center" }}>RECUPERAR CONTRASEÑA</Text>
         {/*Subtitulo*/}
-        <CustomText style={{ color: "#636363ff", marginBottom: 15, textAlign: "center" }}>INGRESE SU DNI REGISTRADO</CustomText>
+        <Text style={{ color: "#636363ff", marginBottom: 15, textAlign: "center" }}>INGRESE SU DNI REGISTRADO</Text>
         {/* Input DNI + Botón Continuar */}
-        <CustomText style={{marginBottom:5}}>DNI</CustomText>
+        <Text style={{marginBottom:5}}>DNI</Text>
         <TextInput
           style={{ backgroundColor: "#fcfcfcff", borderWidth: 1, borderColor: "#939393ff", color: "#000000ff", borderRadius: 10, padding: 12, marginBottom: 16 }}
           value={dni}
@@ -54,12 +57,12 @@ export default function Step1Dni() {
             }}
            onPress={onContinue}
           >
-            <CustomText style={{
+            <Text style={{
               color: 'white',
               fontSize: 18
             }}>
               CONTINUAR
-            </CustomText>
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -4,23 +4,33 @@
 // - Api.resetPassword({ dni, newPassword })
 // - Redirige a (auth)/login con un banner de éxito.
 
-import CustomText from "@/components/CustomText";
 import { router, useLocalSearchParams } from "expo-router";
 
 import { useState } from "react";
-import { Image, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const icon = require('../../../assets/images/logo-vip2cars.png');
-
 
 export default function Step3NewPassword() {
   const { dni } = useLocalSearchParams<{ dni: string }>();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   const onSubmit = async () => {
+    // Validación de las contraseñas
+    if (newPassword.length < 8) {
+      alert("La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
     // await Api.resetPassword({ dni, newPassword });
     router.replace("/(auth)/login");
   };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>
       {/*Logo*/}
@@ -37,9 +47,9 @@ export default function Step3NewPassword() {
         justifyContent: "center"
       }}>
         {/*Titulo*/}
-        <CustomText style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center", paddingBottom:15}}>RECUPERAR CONTRASEÑA</CustomText>
+        <Text style={{ color: "#090909ff", fontSize: 28, fontWeight: "700", marginBottom: 10, textAlign: "center", paddingBottom:15}}>RECUPERAR CONTRASEÑA</Text>
         {/* Input Nueva Contraseña */}
-        <CustomText style={{paddingBottom:5}}>NUEVA CONTRASEÑA</CustomText>
+        <Text style={{paddingBottom:5}}>NUEVA CONTRASEÑA</Text>
         <TextInput
           style={{ backgroundColor: "#fcfcfcff", borderWidth: 1, borderColor: "#939393ff", color: "#000", borderRadius: 10, padding: 12, marginBottom: 16 }}
           value={newPassword}
@@ -47,7 +57,7 @@ export default function Step3NewPassword() {
           secureTextEntry
         />
         {/* Input Repetir Contraseña */}
-        <CustomText style={{paddingBottom:5}}>REPETIR CONTRASEÑA</CustomText>
+        <Text style={{paddingBottom:5}}>REPETIR CONTRASEÑA</Text>
         <TextInput
           style={{ backgroundColor: "#fcfcfcff", borderWidth: 1, borderColor: "#939393ff", color: "#000", borderRadius: 10, padding: 12, marginBottom: 16 }}
           value={confirmPassword}
@@ -65,12 +75,12 @@ export default function Step3NewPassword() {
             }}
             onPress={onSubmit}
           >
-            <CustomText style={{
+            <Text style={{
               color: 'white',
               fontSize: 18
             }}>
               INICIAR SESIÓN
-            </CustomText>
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
