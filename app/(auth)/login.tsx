@@ -13,8 +13,9 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     // Aquí validas usuario/contraseña...
-    // y si es correcto, lo mandas a details 👇
-    router.push("/(tabs)/services/index");
+    // y si es correcto, lo mandas a details 
+    router.replace("/(tabs)");
+    //alert("Login exitoso");
   };
 
   return (

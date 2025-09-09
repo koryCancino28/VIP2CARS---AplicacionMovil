@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+// app/(tabs)/home/index.tsx
+import { StyleSheet, Text, View } from "react-native";
 
-export default function ServicesScreen() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Contenido de Services</Text>
+        <Text style={styles.text}>Bienvenido al Inicio 🚀</Text>
     </View>
   );
 }

@@ -6,9 +6,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Footer({ activeTab }: { activeTab: string }) {
   const goTo = (screen: string) => {
-    if (screen === "home") alert("Ir a Inicio - No implementado");
-    if (screen === "cart") router.replace("/(tabs)/services/index");
-    if (screen === "history") alert("Ir a Historial - No implementado");
+    if (screen === "home") router.replace("/(tabs)/home");
+    if (screen === "cart") router.replace("/(tabs)/services");
+    if (screen === "history") router.replace("/(tabs)/history");
   };
 
   return (

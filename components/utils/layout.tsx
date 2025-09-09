@@ -1,8 +1,8 @@
 // components/Layout.tsx
 import React, { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
-import Footer from "./footer";
-import Header from "./header";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Layout({
   children,

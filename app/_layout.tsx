@@ -5,8 +5,10 @@ export default function RootLayout() {
   return (
     <Stack 
       initialRouteName="(auth)/login"
-      screenOptions={{ headerShown: false }}   // 👈 aquí
+      screenOptions={{ headerShown: false }}   
     >
     </Stack>
+    
   );
 }
+
