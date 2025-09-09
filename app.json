@@ -4,13 +4,8 @@
     "slug": "Vip2cars",
     "version": "1.0.0",
     "orientation": "portrait",
-<<<<<<< HEAD
-    "icon": "./assets/images/logo-cuadrado.png",
-    "scheme": "Vip2cars",
-=======
     "icon": "./assets/images/icons.png",
     "scheme": "vip2cars",
->>>>>>> Henry
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -18,13 +13,8 @@
     },
     "android": {
       "adaptiveIcon": {
-<<<<<<< HEAD
-        "foregroundImage": "./assets/images/logo-cuadrado.png",
-        "backgroundColor": "#000000"
-=======
         "foregroundImage": "./assets/images/icons.png",
         "backgroundColor": "#ffffff"
->>>>>>> Henry
       },
       "edgeToEdgeEnabled": true,
       "package": "com.jerry29.vip2cars"
@@ -32,28 +22,17 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-<<<<<<< HEAD
-      "favicon": "./assets/images/logo-cuadrado.png"
-=======
       "favicon": "./assets/images/icons.png"
->>>>>>> Henry
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-<<<<<<< HEAD
-          "image": "./assets/images/logo-vip2cars.png",
-          "imageWidth": 500,
-          "resizeMode": "center",
-          "backgroundColor": "#000000"
-=======
           "image": "./assets/images/icons.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
->>>>>>> Henry
         }
       ]
     ],
