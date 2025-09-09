@@ -11,22 +11,10 @@ import { Image, Switch, Text, TextInput, TouchableOpacity, View } from "react-na
 export default function LoginScreen() {
   // TODO: estado local para dni, password, remember, loading, error
 
-  const onSubmit = async () => {
-    try {
-      // Aquí normalmente llamarías a tu API de login
-      const loginExitoso = true;
-
-      if (loginExitoso) {
-        // Redirige a la pantalla de vehículos
-        router.replace("../vehiculo/details");
-
-      } else {
-        alert("DNI o contraseña incorrectos");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Error al iniciar sesión");
-    }
+  const handleLogin = () => {
+    // Aquí validas usuario/contraseña...
+    // y si es correcto, lo mandas a details 👇
+    router.push("/(tabs)/services/index");
   };
 
   return (
@@ -43,7 +31,7 @@ export default function LoginScreen() {
           padding: 24,
         }}
       >
-      <Text style={{ color: "#000000ff", fontSize: 20, fontWeight: "700", alignSelf:"center", marginBottom: 15 }}>INICIO DE SESIÓN</Text>
+      <Text style={{ color: "#000000ff", fontSize: 20, fontWeight: "600", alignSelf:"center", marginBottom: 15 }}>INICIO DE SESIÓN</Text>
 
       {/* DNI */}
       <Text style={{ color: "#080808ff", marginBottom: 5 }}>DNI</Text>
@@ -61,7 +49,7 @@ export default function LoginScreen() {
 
       {/* Botón personalizado */}
         <TouchableOpacity
-          onPress={onSubmit}
+          onPress={handleLogin}
           style={{
             backgroundColor: "#E1052A", 
             paddingVertical: 14,
