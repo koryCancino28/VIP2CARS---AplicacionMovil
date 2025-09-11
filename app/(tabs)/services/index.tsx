@@ -1,8 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
 
 export default function VehicleDetailsScreen() {
+  const { width } = useWindowDimensions();
+  const [completed, setCompleted] = useState<string[]>([]);
+  const toggleProceso = (item: string) => {
+    setCompleted((prev) =>
+      prev.includes(item) ? prev.filter((p) => p !== item) : [...prev, item]
+    );
+  };
+  const [activeIndex, setActiveIndex] = useState(0);  
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       {/* Dropdown Header */}
@@ -26,7 +34,7 @@ export default function VehicleDetailsScreen() {
         </View>
 
         <View style={styles.labels}>
-          <Text style={styles.label}>POR COMENZAR</Text>
+          <Text style={styles.label}>        INICIO       </Text>
           <Text style={styles.label}>EN PROCESO</Text>
           <Text style={styles.label}>COMPLETADO</Text>
         </View>
@@ -62,15 +70,139 @@ export default function VehicleDetailsScreen() {
       </View>
 
       {/* Card Estado General */}
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>ESTADO GENERAL</Text>
-        {renderProgress("MOTOR", "BUENO", "green", 0.9)}
-        {renderProgress("FRENOS", "PRECAUCIÓN", "orange", 0.5)}
-        {renderProgress("LLANTAS", "BUENO", "green", 0.8)}
-        {renderProgress("BATERÍA", "PELIGRO", "red", 0.3)}
-        {renderProgress("TRANSMISIÓN", "BUENO", "green", 0.85)}
-        {renderProgress("SUSPENSIÓN", "BUENO", "green", 0.9)}
-      </View>
+        <View style={{ height: 400 }}>
+          <FlatList
+            data={[
+              { key: "estado" },
+              { key: "procesos" }
+            ]}
+            keyExtractor={(item) => item.key}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onMomentumScrollEnd={(ev) => {
+              const index = Math.round(ev.nativeEvent.contentOffset.x / width);
+              setActiveIndex(index);
+            }}
+            renderItem={({ item }) => (
+              <View
+                style={[
+                  styles.card,
+                  { width: width * 0.9, marginHorizontal: 10 }
+                ]}
+              >
+                {item.key === "estado" && (
+                  <>
+                    <Text style={styles.cardTitle}>ESTADO GENERAL</Text>
+                    {renderProgress("MOTOR", "BUENO", "green", 0.9)}
+                    {renderProgress("FRENOS", "PRECAUCIÓN", "orange", 0.5)}
+                    {renderProgress("LLANTAS", "BUENO", "green", 0.8)}
+                    {renderProgress("BATERÍA", "PELIGRO", "red", 0.3)}
+                    {renderProgress("TRANSMISIÓN", "BUENO", "green", 0.85)}
+                    {renderProgress("SUSPENSIÓN", "BUENO", "green", 0.9)}
+                  </>
+                )}
+                {item.key === "procesos" && (
+                  <>
+                    <Text style={styles.cardTitle}>PROCESOS</Text>
+                    <ScrollView
+                      style={{ maxHeight: 300 }} // 👈 límite de altura
+                      showsVerticalScrollIndicator={true} // 👈 muestra scroll bar
+                    >
+                    {[
+                      { title: "Recepción del vehículo" },
+                      { title: "Diagnóstico inicial",
+                        sub: ["Escaneo computarizado", "Prueba en carretera"] 
+                      },
+                      { title: "Revisión de motor",
+                        sub: ["Revisar niveles de aceite", "Inspeccionar correas y mangueras"] 
+                      },
+                      { title: "Cambio de aceite y filtros",
+                        sub: ["Filtro de aceite", "Filtro de aire"] 
+                      }
+                    ].map((proc) => (
+                      <View key={proc.title} style={{ marginBottom: 8 }}>
+                        {/* Punto principal */}
+                        <TouchableOpacity
+                          style={styles.procesoItem}
+                          onPress={() => toggleProceso(proc.title)}
+                        >
+                          <View
+                            style={[
+                              styles.circle,
+                              completed.includes(proc.title) && styles.circleCompleted,
+                            ]}
+                          >
+                            {completed.includes(proc.title) && (
+                              <Ionicons name="checkmark" size={14} color="#fff" />
+                            )}
+                          </View>
+                          <Text
+                            style={[
+                              styles.procesoText,
+                              completed.includes(proc.title) && styles.procesoTextDone,
+                            ]}
+                          >
+                            {proc.title}
+                          </Text>
+                        </TouchableOpacity>
+
+                        {/* Sub-puntos (si existen) */}
+                        {proc.sub &&
+                          proc.sub.map((sub) => (
+                            <TouchableOpacity
+                              key={sub}
+                              style={[styles.procesoItem, { marginLeft: 35 }]} // 👈 sangría
+                              onPress={() => toggleProceso(sub)}
+                            >
+                              <View
+                                style={[
+                                  styles.circleSmall,
+                                  completed.includes(sub) && styles.circleCompletedSmall,
+                                ]}
+                              >
+                                {completed.includes(sub) && (
+                                  <Ionicons name="checkmark" size={12} color="#fff" />
+                                )}
+                              </View>
+                              <Text
+                                style={[
+                                  styles.subProcesoText,
+                                  completed.includes(sub) && styles.procesoTextDone,
+                                ]}
+                              >
+                                {sub}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                      </View>
+                    ))}
+                    </ScrollView>
+                  </>
+                )}
+              </View>
+            )}
+          />
+
+          {/* Puntos indicadores */}
+          <View style={styles.dotsContainer}>
+            {[0, 1].map((i) => (
+              <View
+                key={i}
+                style={[
+                  styles.dot,
+                  i === activeIndex
+                    ? { backgroundColor: "#ffff" }
+                    : { backgroundColor: "#888" }
+                ]}
+              />
+            ))}
+          </View>
+        </View>
     </ScrollView>
   );
 }
@@ -110,6 +242,55 @@ const styles = StyleSheet.create({
     backgroundColor: "#555", // color de la línea
     zIndex: 0, // se queda detrás de los círculos
   },
+  dotsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },procesoItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 8,
+  },
+  circleCheckList: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2,
+    borderColor: "#888",
+    marginRight: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  circleCompleted: {
+    backgroundColor: "#E1052A",
+    borderColor: "#E1052A",
+  },
+  circleSmall: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 2,
+    borderColor: "#666",
+    marginRight: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  circleCompletedSmall: {
+    backgroundColor: "#E1052A",
+    borderColor: "#E1052A",
+  },
+  subProcesoText: {
+    color: "#ccc",
+    fontSize: 13,
+  },
+  procesoText: { color: "#fff", fontSize: 14 },
+  procesoTextDone: { color: "#aaa", textDecorationLine: "line-through" },
   dropdownText: { color: "#fff", fontSize: 16 },
   title: { color: "#fff", fontSize: 25, fontWeight: "bold", textAlign: "center" },
   subtitle: { color: "#aaa", textAlign: "center", marginBottom: 20 },

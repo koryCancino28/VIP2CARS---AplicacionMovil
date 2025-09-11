@@ -1,6 +1,6 @@
 // app/(tabs)/_layout.tsx
 import { Slot, usePathname } from "expo-router";
-import Layout from "../../components/utils/Layout";
+import Layout from "../../components/utils/layout";
 
 export default function TabsLayout() {
   const pathname = usePathname();
