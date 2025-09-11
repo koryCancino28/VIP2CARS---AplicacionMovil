@@ -4,10 +4,11 @@
 // - Botón "Continuar" → step3-new-password.
 // - Link "Reenviar código" (cooldown de 30–60s).
 
-import CustomText from "@/components/CustomText";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Image, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, TextInput, TouchableOpacity, View } from "react-native";
+import { API_BASE_URL } from '../../../constants/API';
+import { CustomText } from '../../_layout';
 
 const icon = require('../../../assets/images/logo-vip2cars.png');
 
@@ -15,8 +16,23 @@ export default function Step2Code() {
   const { dni } = useLocalSearchParams<{ dni: string }>();
   const [code, setCode] = useState('');
   const onContinue = async () => {
-    // await Api.verifyRecoveryCode({ dni, code });
-    router.push({ pathname: "/(auth)/password/step3-new-password", params: { dni } });
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/verify-recovery-code`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dni, code }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        router.push({ pathname: "/(auth)/password/step3-new-password", params: { dni, code } });
+      } else {
+        Alert.alert('Error', data.detail || 'Código incorrecto');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Error de conexión');
+    }
   };
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>

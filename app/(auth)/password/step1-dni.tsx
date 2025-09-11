@@ -3,17 +3,40 @@
 // - Llama a Api.sendRecoveryCode(dni).
 // - Navega a step2-code pasando el dni como parámetro para mostrar el número enmascarado.
 
-import CustomText from "@/components/CustomText";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Image, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, TextInput, TouchableOpacity, View } from "react-native";
+import { API_BASE_URL } from '../../../constants/API';
+import { CustomText } from '../../_layout';
 
 const icon = require('../../../assets/images/logo-vip2cars.png');
 export default function Step1Dni() {
   const [dni, setDni] = useState('');
   const onContinue = async () => {
-    // await Api.sendRecoveryCode(dni);
-    router.push({ pathname: "/(auth)/password/step2-code", params: { dni } });
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/send-recovery-code`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dni }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // Mostrar código en alert para testing
+        Alert.alert(
+          'Código SMS',
+          `Tu código de recuperación es: ${data.code}\n\n(En producción esto se enviaría por SMS)`,
+          [
+            { text: 'OK', onPress: () => router.push({ pathname: "/(auth)/password/step2-code", params: { dni } }) }
+          ]
+        );
+      } else {
+        Alert.alert('Error', data.detail || 'Error al enviar el código');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Error de conexión');
+    }
   };
   return (
     <View style={{ flex: 1, backgroundColor: "#000", justifyContent: "center", padding: 24 }}>
