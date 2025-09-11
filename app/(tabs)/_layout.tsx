@@ -11,9 +11,12 @@ export default function TabsLayout() {
   if (pathname.includes("/history")) activeTab = "history";
   if (pathname.includes("/home")) activeTab = "home";
 
+export default function TabLayout() {
   return (
-    <Layout activeTab={activeTab}>
-      <Slot /> 
-    </Layout>
+    <Tabs>
+      <Tabs.Screen name="index" options={{ title: 'Home' }} />
+      <Tabs.Screen name="history" options={{ title: 'History' }} />
+      <Tabs.Screen name="services" options={{ title: 'Services' }} />
+    </Tabs>
   );
-}
+} 

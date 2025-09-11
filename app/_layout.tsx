@@ -1,33 +1,16 @@
-
-import * as Font from "expo-font";
-import { Stack } from "expo-router";
-import { useEffect, useState } from "react";
-import "react-native-reanimated";
+import { Stack } from 'expo-router';
+import 'react-native-reanimated';
+import CustomText from '../components/CustomText';
+export { CustomText };
 
 export default function RootLayout() {
-
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    async function loadFonts() {
-      await Font.loadAsync({
-        MontserratRegular: require("../assets/fonts/montserrat/Montserrat-Regular.ttf"),
-        MontserratMedium: require("../assets/fonts/montserrat/Montserrat-Medium.ttf"),
-        MontserratBold: require("../assets/fonts/montserrat/Montserrat-Bold.ttf"),
-      });
-      setLoaded(true);
-    }
-    loadFonts();
-  }, []);
-
-  if (!loaded) {
-    return null; // 👈 loader opcional
-  }
-
   return (
-    <Stack
-      initialRouteName="(auth)/login"
-      screenOptions={{ headerShown: false }}
-    />
+    <Stack initialRouteName="(auth)/login">
+      <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)/password/step1-dni" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)/password/step2-code" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)/password/step3-new-password" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
   );
 }

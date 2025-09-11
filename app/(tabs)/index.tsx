@@ -1,6 +1,14 @@
-// app/(tabs)/index.tsx
-import { Redirect } from "expo-router";
+import { StyleSheet, View } from 'react-native';
+import { CustomText } from '../_layout';
 
-export default function Index() {
-  return <Redirect href="/(tabs)/services" />;
+export default function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <CustomText>Home Screen</CustomText>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  
+});

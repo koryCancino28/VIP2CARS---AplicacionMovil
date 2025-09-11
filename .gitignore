@@ -36,4 +36,16 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
 app-example

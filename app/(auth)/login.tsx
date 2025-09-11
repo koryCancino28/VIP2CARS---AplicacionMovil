@@ -5,26 +5,61 @@
 // - Botón "Ingresar": llama Api.login(), guarda token en AuthContext, redirige a (tabs)
 // - Link a recuperación: (auth)/password/step1-dni
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link, router } from "expo-router";
-
 import React, { useState } from "react";
-import { Image, Switch, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Switch, TextInput, TouchableOpacity, View } from "react-native";
+import CustomText from '../../components/CustomText';
+import { API_BASE_URL } from '../../constants/API';
 
 const icon = require('../../assets/images/logo-vip2cars.png');
-
 
 export default function LoginScreen() {
   const [dni, setDni] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  
 
-  const handleLogin = () => {
-    // Aquí validas usuario/contraseña...
-    // y si es correcto, lo mandas a details 
-    router.replace("/(tabs)");
-    //alert("Login exitoso");
+  const onSubmit = async () => {
+    // 1. Validar campos
+    if (!dni || !password) {
+        Alert.alert("Error", "Por favor ingrese DNI y contraseña.");
+        return;
+    }
+
+    try {
+        // 2. Hacer petición a la API real
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ dni, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // 3. Guardar token en AsyncStorage si "Recordarme"
+            if (remember) {
+                await AsyncStorage.setItem('user_token', data.access_token);
+                await AsyncStorage.setItem('user_data', JSON.stringify({
+                    user_id: data.user_id,
+                    user_doc: data.user_doc
+                }));
+            }
+
+            // 4. Redirigir a la página principal
+            Alert.alert("Éxito", "Login exitoso!", [
+                { text: "OK", onPress: () => router.replace("/(tabs)") }
+            ]);
+        } else {
+            // 5. Manejar errores de la API
+            Alert.alert("Error", data.detail || "Credenciales inválidas");
+        }
+    } catch (error) {
+        Alert.alert("Error", "Error de conexión con el servidor");
+    }
   };
 
   return (
@@ -33,10 +68,10 @@ export default function LoginScreen() {
       <Image source={icon} style={{ width: 380, height: 60, alignSelf: "center", marginBottom: 20 }}></Image>
       {/*Formulario*/}
       <View style={{ backgroundColor: "#ffffffff", borderRadius: 45, paddingVertical: 32, paddingHorizontal: 42, width: "100%", maxWidth: 400, minHeight: 400, alignSelf: "center", justifyContent: "center" }}>
-        <Text style={{ color: "#010101ff", fontSize: 28, fontWeight: "800", marginBottom: 12, textAlign: "center" }}>INICIO DE SESIÓN</Text>
+        <CustomText style={{ color: "#010101ff", fontSize: 28, fontWeight: "800", marginBottom: 12, textAlign: "center" }}>INICIO DE SESIÓN</CustomText>
 
         {/* DNI */}
-        <Text style={{ color: "#080808ff", marginBottom:5 }}>DNI</Text>
+        <CustomText style={{ color: "#080808ff", marginBottom:5 }}>DNI</CustomText>
         <TextInput
           style={{ backgroundColor: "#ffffffff", borderWidth: 1, borderColor:"#939393ff" ,color: "#000", borderRadius: 8, padding: 12, height:50 ,marginBottom: 18 }}
           value={dni}
@@ -46,7 +81,7 @@ export default function LoginScreen() {
         />
 
         {/* Contraseña */}
-        <Text style={{ color: "#000000ff", marginBottom:5 }}>CONTRASEÑA</Text>
+        <CustomText style={{ color: "#000000ff", marginBottom:5 }}>CONTRSEÑA</CustomText>
         <TextInput
           secureTextEntry
           style={{ backgroundColor: "#ffffffff", borderWidth:1,borderColor:"#939393ff" ,color: "#000", borderRadius: 8, height:50 ,padding: 12, marginBottom: 5 }}
@@ -56,8 +91,8 @@ export default function LoginScreen() {
         
         {/* Link a recuperación */}
         <View/>
-        <Link href="../(auth)/password/step1-dni" asChild>
-          <Text style={{ color: "#E1052A" }}>¿OLVIDASTE TU CONTRASEÑA?</Text>
+        <Link href="/(auth)/password/step1-dni" asChild>
+          <CustomText style={{ color: "#E1052A" }}>¿OLVIDASTE TU CONTRASEÑA?</CustomText>
         </Link>
 
         {/* Recordarme + Botón Ingresar */}   
@@ -70,18 +105,19 @@ export default function LoginScreen() {
               value={remember}
               onValueChange={setRemember}
             />
-            <Text style={{ color: "#000000ff", fontSize:13}}>RECORDARME EN ESTE DISPOSITIVO</Text>
+            <CustomText style={{ color: "#000000ff", fontSize:13}}>RECORDARME EN ESTE DISPOSITIVO</CustomText>
           </View>
 
           {/* Botón Ingresar */}
           <View style={{ width: "100%", maxWidth: 200 }}>
-            <TouchableOpacity style={{ backgroundColor: "#E4022E", borderRadius: 22, paddingVertical: 15, paddingHorizontal: 24, alignItems: 'center' }} onPress={handleLogin}>
-              <Text style={{ color: 'white', fontSize: 18 }}>INICIAR SESIÓN</Text>
+            <TouchableOpacity style={{ backgroundColor: "#E4022E", borderRadius: 22, paddingVertical: 15, paddingHorizontal: 24, alignItems: 'center' }} onPress={onSubmit}>
+              <CustomText style={{ color: 'white', fontSize: 18 }}>INICIAR SESIÓN</CustomText>
             </TouchableOpacity>
           </View>
 
         </View>
       </View>
+
     </View>
   );
 }
