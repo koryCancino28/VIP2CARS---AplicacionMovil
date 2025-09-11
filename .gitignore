@@ -36,4 +36,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 app-example
