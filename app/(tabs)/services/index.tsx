@@ -110,8 +110,8 @@ export default function VehicleDetailsScreen() {
                   <>
                     <Text style={styles.cardTitle}>PROCESOS</Text>
                     <ScrollView
-                      style={{ maxHeight: 300 }} // 👈 límite de altura
-                      showsVerticalScrollIndicator={true} // 👈 muestra scroll bar
+                      style={{ maxHeight: 300 }} 
+                      showsVerticalScrollIndicator={true}
                     >
                     {[
                       { title: "Recepción del vehículo" },
