@@ -7,7 +7,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link, router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Alert, Image, Switch, TextInput, TouchableOpacity, View } from "react-native";
 import CustomText from '../../components/CustomText';
 import { API_BASE_URL } from '../../constants/API';
@@ -49,9 +49,9 @@ export default function LoginScreen() {
                 }));
             }
 
-            // 4. Redirigir a la página principal
+            // 4. Redirigir directamente a la sección de servicios/diagnósticos
             Alert.alert("Éxito", "Login exitoso!", [
-                { text: "OK", onPress: () => router.replace("/(tabs)") }
+                { text: "OK", onPress: () => router.replace("/(tabs)/services") }
             ]);
         } else {
             // 5. Manejar errores de la API
