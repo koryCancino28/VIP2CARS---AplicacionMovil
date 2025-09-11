@@ -10,4 +10,10 @@ export default function TabsLayout() {
   if (pathname.includes("/services")) activeTab = "cart";
   if (pathname.includes("/history")) activeTab = "history";
   if (pathname.includes("/home")) activeTab = "home";
-} 
+
+  return (
+    <Layout activeTab={activeTab}>
+      <Slot /> 
+    </Layout>
+  );
+}
