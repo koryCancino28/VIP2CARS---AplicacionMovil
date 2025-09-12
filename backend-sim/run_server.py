@@ -8,12 +8,12 @@ if __name__ == "__main__":
     print("Test credentials:")
     print("DNI: 12345678")
     print("Password: 123456")
-    print("\nServer will be available at: http://localhost:8000")
-    print("API docs at: http://localhost:8000/docs")
+    print("\nServer will be available at: http://192.168.137.1:8000")
+    print("API docs at: http://192.168.137.1:8000/docs")
 
     uvicorn.run(
         "main:app",
-        host="0.0.0.0",
+        host="192.168.137.1",
         port=8000,
         reload=True,
         log_level="info"

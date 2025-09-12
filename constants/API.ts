@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://localhost:8000"; // Para desarrollo local
+export const API_BASE_URL = "http://192.168.137.1:8000"; // Para desarrollo local
 
 // const response = await fetch(`${API_BASE_URL}/auth/login`, {
 //   method: "POST",
