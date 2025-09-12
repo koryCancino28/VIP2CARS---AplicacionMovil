@@ -13,12 +13,10 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Lógica para autenticar al usuario
 # crud.py
 def authenticate_user(db: Session, user_doc: str, password: str):
-    try:
-        user = db.query(User).filter(User.user_doc == user_doc).one()  # Buscar por DNI
-        if pwd_context.verify(password, user.user_password):
-            return user
-    except NoResultFound:
-        return None
+    user = db.query(User).filter(User.user_doc == user_doc).first()  # Buscar por DNI
+    if user and pwd_context.verify(password, user.user_password):
+        return user
+    return None
 
 def create_user(db: Session, user_doc: str, password: str, user_phone: str):
     hashed_password = pwd_context.hash(password)  # Encriptamos la contraseña

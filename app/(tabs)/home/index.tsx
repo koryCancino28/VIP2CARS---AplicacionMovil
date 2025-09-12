@@ -7,11 +7,6 @@ export default function HomeScreen() {
     <ScrollView style={styles.container}>
       {/* Header con logo */}
       <View style={styles.header}>
-        <Image
-          source={require('../../../assets/images/logo-vip2cars.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
         <CustomText style={styles.welcomeTitle}>¡Bienvenido a VIP2CARS!</CustomText>
         <CustomText style={styles.subtitle}>Tu taller mecánico de confianza</CustomText>
       </View>
